@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello WORLD!</title>
+    <link rel="stylesheet" media="screen" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" />
+    <link rel="stylesheet" media="screen" href="css/style.css" />
+</head>
+<body>
+
+    <div id="container">
+        <nav id="nav">
+            <ul>
+                <li class="current"><a href="#">Save Account</a></li>
+                <li class=""><a href="#">Accounts</a></li>
+            </ul>
+        </nav>
+        <div id="save">
+            <form id="save-form">
+                <label for="account-name">Name</label>
+                <div class="input">                    
+                    <input type="text" id="account-name" size="50" />
+                </div>
+                <label for="account-secret">Secret</label>
+                <div class="input">
+                    <input type="text" id="account-secret" size="50" />
+                </div>
+                <div class="input">
+                  <input type="submit" value="Save Account" />
+                </div>
+            </form>
+        </div>
+        <div id="lol_accounts">
+        </div>
+    </div>
+
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript">
+        document.getElementById('nav').addEventListener('click', function(e){
+            if (e.target.tagName == 'A') {
+
+              if (e.target.parentNode.parentNode.children[0].firstElementChild == e.target) {
+                e.target.parentNode.parentNode.children[0].className = "current";
+                e.target.parentNode.parentNode.children[1].className = "";
+                document.getElementById('save').style.display = '';
+                document.getElementById('lol_accounts').style.display = 'none';
+              }else{
+                e.target.parentNode.parentNode.children[0].className = "";
+                e.target.parentNode.parentNode.children[1].className = "current";
+                document.getElementById('save').style.display = 'none';
+                document.getElementById('lol_accounts').style.display = '';
+              }
+            }
+        });
+    </script>
+</body>
+
+</html>
