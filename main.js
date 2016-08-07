@@ -24,6 +24,10 @@ app.on('ready', function () {
 		event.sender.send('new-account', data);
 	});
 
+    ipc.on('delete-account', function(event, data){
+		event.sender.send('delete-account', data);
+	});
+
 	// Emitted when the window is closed.
     mainWindow.on('closed', function () {
         // Dereference the window object, usually you would store windows
