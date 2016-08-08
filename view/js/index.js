@@ -40,7 +40,6 @@ ipc.on('delete-account', function (event, account) {
     accounts = accounts.filter(function(acc){
       return acc.name !== account;
     });
-    console.log(accounts);
 
     storage.set('accounts', accounts, function(error) {
       if (error) throw error;
@@ -63,7 +62,6 @@ document.getElementById('save-form').addEventListener("submit", (e) => {
 document.getElementById('lol_accounts').addEventListener("click", function(e){
   var account = e.target.parentNode.parentNode.parentNode;
 	if ((e.target.tagName == 'IMG') && (e.target.className == 'copy')){
-    console.log(account);
 		clipboard.writeText(account.dataset.token);
 	} else if ((e.target.tagName == 'IMG') && (e.target.className == 'edit')){
 		clipboard.writeText(e.target.dataset.token);
@@ -83,7 +81,7 @@ document.getElementById('lol_accounts').addEventListener("click", function(e){
 
 function createNewAccount(account) {
     var wrapper = document.createElement("div");
-    wrapper.className = "token-input";
+    wrapper.className = "token-input progress anim";
 
     var accountDiv = document.createElement("div");
     accountDiv.className = "account-name";
@@ -95,39 +93,46 @@ function createNewAccount(account) {
     var accountToken = document.createElement("div");
     accountToken.className = "account-token";
 
-    wrapper.appendChild(accountDiv);
+    var row = document.createElement("div");
+    row.className = "row";
+
+    wrapper.appendChild(row);
+    row.appendChild(accountDiv);
     accountDiv.appendChild(accountName);
     accountDiv.appendChild(accountToken);
 
     var copyDiv = document.createElement("div");
     var copyLink = document.createElement("a");
     var copyIcon = document.createElement("img");
+    copyDiv.className = "icon";
     copyIcon.src = "img/copy.png";
     copyIcon.className = "copy";
     copyLink.appendChild(copyIcon);
     copyLink.href = "#";
     copyDiv.appendChild(copyLink);
-    wrapper.appendChild(copyDiv);
+    row.appendChild(copyDiv);
 
     var editDiv = document.createElement("div");
     var editLink = document.createElement("a");
     var editIcon = document.createElement("img");
+    editDiv.className = "icon";
     editIcon.src = "img/edit.png";
     editIcon.className = "edit";
     editLink.appendChild(editIcon);
     editLink.href = "#";
     editDiv.appendChild(editLink);
-    wrapper.appendChild(editDiv);
+    row.appendChild(editDiv);
 
     var trashDiv = document.createElement("div");
     var trashLink = document.createElement("a");
     var trashIcon = document.createElement("img");
+    trashDiv.className = "icon";
     trashIcon.src = "img/trash.png";
     trashIcon.className = "trash";
     trashLink.appendChild(trashIcon);
     trashLink.href = "#";
     trashDiv.appendChild(trashLink);
-    wrapper.appendChild(trashDiv);
+    row.appendChild(trashDiv);
 
     document.getElementById('lol_accounts').appendChild(wrapper);
 
@@ -136,9 +141,16 @@ function createNewAccount(account) {
     wrapper.dataset.secret = account.secret;
 
     window.setInterval(function(){
+      var previousToken = accountToken.textContent;
       var code = otp.generate(wrapper.dataset.secret);
       accountToken.textContent = code;
       wrapper.dataset.token = code;
+
+      if (previousToken != code) {
+        wrapper.classList.remove('anim');
+        void wrapper.offsetWidth
+        wrapper.classList.add('anim')
+      }
     }, 1000);
 
     var newAccount = new MenuItem({

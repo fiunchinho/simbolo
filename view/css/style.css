@@ -1,3 +1,6 @@
+* {
+  box-sizing: border-box;
+}
 html {
   font-size: 16px;
   line-height: 24px;
@@ -69,32 +72,67 @@ label {
 }
 .token-input {
   display: block;
-  width: 97%;
-  height: 30px;
-  padding: 5px 0px;
+  height: 50px;
   border: none;
   line-height: 34px;
-  padding-left: 20px;
   border-bottom: 1px solid #E5E5E5;
 }
-.token-input div{
+
+.row {
+  position: relative;
+
+}
+
+.row > div {
   float: left;
   width: 5%;
 }
+
 .token-input .account-name {
   width: 85%;
 	text-transform: uppercase;
 	letter-spacing: 1px;
 	font-size: 12px;
 	line-height: 14px;
-	padding-top: 5px;
+	padding-top: 12px;
+  padding-left: 20px;
 }
 .account-token {
   color: #4CAF50;
   clear: left;
 }
+.icon {
+  padding-top: 12px;
+  opacity: .65;
+}
+.icon:hover {
+  opacity: 1;
+}
 img {
   width: 15px;
+}
+.progress {
+  position: relative;
+}
+.progress::before {
+    content: "";
+    background-color: lightblue;
+    border-bottom: 1px solid #E5E5E5;
+    display: block;
+    height:49px;
+    position: absolute;
+    width: 100%;
+    opacity: 0.3;
+}
+
+.anim.progress::before {
+  animation: filler 30s linear infinite;
+}
+
+@keyframes filler {
+    to {
+        width: 0;
+    }
 }
 .hide {
   display: none;
