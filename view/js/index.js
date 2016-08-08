@@ -136,15 +136,15 @@ function createNewAccount(account) {
 
     document.getElementById('lol_accounts').appendChild(wrapper);
 
-    wrapper.id = account.name + "-token-input";
-    wrapper.dataset.name = account.name;
-    wrapper.dataset.secret = account.secret;
+    row.id = account.name + "-token-input";
+    row.dataset.name = account.name;
+    row.dataset.secret = account.secret;
 
     window.setInterval(function(){
       var previousToken = accountToken.textContent;
-      var code = otp.generate(wrapper.dataset.secret);
+      var code = otp.generate(row.dataset.secret);
       accountToken.textContent = code;
-      wrapper.dataset.token = code;
+      row.dataset.token = code;
 
       if (previousToken != code) {
         wrapper.classList.remove('anim');
